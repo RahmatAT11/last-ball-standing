@@ -16,10 +16,15 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI totalBallsRemain;
     public TextMeshProUGUI waveNumText;
     public TextMeshProUGUI gameOverText;
+
     public Button restartButton;
+
     public GameObject gameOverUI;
-    public bool isGameOver;
     public GameObject pauseMenu;
+
+    public bool isGameOver;
+
+    public static bool isGamePaused;
 
     private void Awake()
     {
@@ -36,7 +41,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        PauseGameInput();
     }
 
     public void updateBallsRemain(int ballsRemain)
@@ -80,5 +85,35 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    void PauseGameInput()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            isGamePaused = !isGamePaused;
+            PauseGame();
+        }
+    }
+
+    void PauseGame()
+    {
+        if (isGamePaused)
+        {
+            pauseMenu.SetActive(true);
+            Time.timeScale = 0f;
+        }
+
+        else
+        {
+            Time.timeScale = 1;
+            pauseMenu.SetActive(false);
+        }
+    }
+
+    public void ResumeGame()
+    {
+        isGamePaused = !isGamePaused;
+        PauseGame();
     }
 }

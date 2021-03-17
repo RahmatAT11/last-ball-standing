@@ -54,8 +54,11 @@ public class PlayerController : MonoBehaviour
     // Get the input for RollPlayer method
     void GetVerticalInput()
     {
-        // Player can roll around using the WASD key
-        verticalInput = Input.GetAxis("Vertical");
+        if (!isGamePaused)
+        {
+            // Player can roll around using the WASD key
+            verticalInput = Input.GetAxis("Vertical");
+        }
     }
 
     // Roll player with WS keys
