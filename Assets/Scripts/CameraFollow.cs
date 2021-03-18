@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public float rotateSpeed = 200.0f;
+    [SerializeField] float rotateSpeed;
     private GameObject player;
 
     // Start is called before the first frame update
@@ -24,15 +24,15 @@ public class CameraFollow : MonoBehaviour
         FollowPlayer();
     }
 
+    // Camera move as the focus point move
     void FollowPlayer()
     {
-        // Camera move as the focus point move
         transform.position = player.transform.position;
     }
 
+    // Camera rotates around the focus point
     void CameraRotate()
     {
-        // Camera rotates around the focus point
         float horizontalInput = Input.GetAxis("Horizontal");
         transform.Rotate(Vector3.up, rotateSpeed * horizontalInput * Time.deltaTime);
     }

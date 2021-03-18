@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float speed;
+    [SerializeField] float speed;
+    float speedMultiplier = 1.002f;
+
     private Rigidbody enemyRb;
     private GameObject player;
     private SpawnManager spawnManager;
@@ -32,26 +34,31 @@ public class Enemy : MonoBehaviour
     // Mechanic for how the enemy find the player and roll to player vector position
     void EnemyRoll()
     {
-        // Move into player direction
-        Vector3 playerDirection = (player.transform.position - transform.position).normalized;
-        enemyRb.AddForce(playerDirection * speed);
+        if (!GameManager.isPause)
+        {
+            // Move into player direction
+            Vector3 playerDirection = (player.transform.position - transform.position).normalized;
+            enemyRb.AddForce(playerDirection * speed);
+        }
     }
 
+    // Check the enemy if they fall from the arena
     void CheckIfEnemyFall()
     {
+        float yBound = 5.0f;
+
         // Destroy enemy if drop below certain position
-        if (transform.position.y < -5)
+        if (transform.position.y < -yBound)
         {
             Destroy(gameObject);
         }
     }
 
-    // multiply enemy speed over certain wave
+    // multiply enemy speed over certain wave number
     void ChangeSpeedEveryWave(int waveNum)
     {
         if (spawnManager.isWaveNumChanged)
         {
-            float speedMultiplier = 1.002f;
             speed *= speedMultiplier;
         }
     }

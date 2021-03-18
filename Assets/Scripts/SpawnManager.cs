@@ -33,7 +33,7 @@ public class SpawnManager : MonoBehaviour
         if (numberOfEnemies == 0)
         {
             waveNum++;
-            gameManager.updateWaveNum(waveNum);
+            gameManager.UpdateWaveNum(waveNum);
 
             isWaveNumChanged = true;
 
@@ -43,11 +43,11 @@ public class SpawnManager : MonoBehaviour
             SpawnPowerup();
         }
 
-        gameManager.updateBallsRemain(numberOfEnemies);
+        gameManager.UpdateBallsRemain(numberOfEnemies);
 
         if (waveNum > 5)
         {
-            gameManager.isGameOver = true;
+            GameManager.isOver = true;
             gameManager.GameOver(1);
         }
     }

@@ -22,9 +22,9 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverUI;
     public GameObject pauseMenu;
 
-    public bool isGameOver;
+    public static bool isOver;
 
-    public static bool isGamePaused;
+    public static bool isPause;
 
     private void Awake()
     {
@@ -35,21 +35,22 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isPause = false;
         Time.timeScale = 1.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        PauseGameInput();
+
     }
 
-    public void updateBallsRemain(int ballsRemain)
+    public void UpdateBallsRemain(int ballsRemain)
     {
         totalBallsRemain.text = "Total Balls Remain: " + ballsRemain;
     }
 
-    public void updateWaveNum(int waveNum)
+    public void UpdateWaveNum(int waveNum)
     {
         waveNumText.text = "Wave: " + waveNum;
     }
@@ -69,7 +70,7 @@ public class GameManager : MonoBehaviour
             gameOverText.color = new Color(255, 0, 0);
         }
 
-        Time.timeScale = 0.0f;
+        Time.timeScale = 0f;
     }
 
     public void RestartGame()
@@ -87,18 +88,9 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    void PauseGameInput()
+    public void PauseGame()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            isGamePaused = !isGamePaused;
-            PauseGame();
-        }
-    }
-
-    void PauseGame()
-    {
-        if (isGamePaused)
+        if (isPause)
         {
             pauseMenu.SetActive(true);
             Time.timeScale = 0f;
@@ -113,7 +105,7 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        isGamePaused = !isGamePaused;
+        isPause = false;
         PauseGame();
     }
 }
